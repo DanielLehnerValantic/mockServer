@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>App Title</title>
+    <title>App Title - Test</title>
     <style>
         html, body, body > div, #container, #container-uiarea {
             height: 100%;
@@ -12,7 +12,7 @@
     </style>
     <script
         id="sap-ui-bootstrap"
-        src="resources/sap-ui-core.js"
+        src="../resources/sap-ui-core.js"
         data-sap-ui-theme="sap_horizon"
         data-sap-ui-resourceroots='{
             "com.valantic.mockserver": "../"
@@ -20,9 +20,10 @@
         data-sap-ui-compatVersion="edge"
         data-sap-ui-async="true"
         data-sap-ui-frameOptions="trusted"
+        data-sap-ui-oninit="module:com/valantic/mockserver/test/initMockServer"
     ></script>
-    <script id="locate-reuse-libs" src="./utils/locate-reuse-libs.js"
-        data-sap-ui-manifest-uri="./manifest.json"
+    <script id="locate-reuse-libs" src="../utils/locate-reuse-libs.js"
+        data-sap-ui-manifest-uri="../manifest.json"
         data-sap-ui-componentName="com.valantic.mockserver">
     </script> 
 </head>

@@ -8,7 +8,7 @@ sap.ui.define([
 		init: function () {
 			// create
 			var oMockServer = new MockServer({
-				rootUri: "https://services.odata.org/V2/Northwind/Northwind.svc/"
+				rootUri: "/sap/opu/odata/sap/Z_EWM_PTWY_LOGIMAT_SRV/"
 			});
 
 			var oUriParameters = new UriParameters(window.location.href);
@@ -20,11 +20,25 @@ sap.ui.define([
 			});
 
 			// simulate
-			var sPath = sap.ui.require.toUrl("sap/ui/demo/walkthrough/localService");
+			var sPath = sap.ui.require.toUrl("com/valantic/mockserver/localService");
 			oMockServer.simulate(sPath + "/metadata.xml", sPath + "/mockdata");
 
 			// start
 			oMockServer.start();
+
+            
+            // this.oMockServer = new MockServer({
+			// 	rootUri: "/sap/opu/odata/sap/Z_EWM_PTWY_LOGIMAT_SRV/"
+			// });
+			// var sMetadataRelativePath = "../localService/metadata.xml";
+			// var oMockSettings = {
+			// 	sMockdataBaseUrl: "../localService/data",
+			// 	bGenerateMissingMockData: true
+			// };
+			// var oMockServer = this.oMockServer;
+
+			// oMockServer.simulate(sMetadataRelativePath, oMockSettings);
+			// oMockServer.start();
 		}
 	};
 

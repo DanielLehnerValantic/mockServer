@@ -1,7 +1,35 @@
 <mvc:View controllerName="com.valantic.mockserver.controller.main"
     xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
     xmlns="sap.m">
-    <Page id="page" title="{i18n>title}">
-        <content />
-    </Page>
+    <Table
+		items="{
+			path: '/ZEWM_C_LOGIMAT_INBOUNDDLVS'
+		}">
+		<headerToolbar>
+			<OverflowToolbar>
+				<Title text="Fridges Overview" level="H2"/>
+			</OverflowToolbar>
+		</headerToolbar>
+		<columns>
+			<Column>
+				<Text text="Quantity" />
+			</Column>
+			<Column>
+				<Text text="Description" />
+			</Column>
+			<Column>
+				<Text text="Total Quantity" />
+			</Column>
+
+		</columns>
+		<items>
+			<ColumnListItem vAlign="Middle" type="Navigation" press=".onPress">
+				<cells>
+					<Text text="{Qty}" wrapping="false" />
+					<Text text="{test}" wrapping="false"/>
+                    <!-- <ObjectNumber number="{path: 'TotalQuan', formatter: '.formatter.numberUnit'}" unit="{Unit}" /> -->
+				</cells>
+			</ColumnListItem>
+		</items>
+	</Table>
 </mvc:View>

@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:Reference Uri="http://val-vs1.movento.mannheim:8001/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMON',Version='0001',SAP__Origin='FIORI_MENU')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="http://val-vs1.movento.mannheim:8001/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_CAPABILITIES',Version='0001',SAP__Origin='FIORI_MENU')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="http://val-vs1.movento.mannheim:8001/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMUNICATION',Version='0001',SAP__Origin='FIORI_MENU')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.Communication.v1" Alias="Communication"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="http://val-vs1.movento.mannheim:8001/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_AGGREGATION',Version='0001',SAP__Origin='FIORI_MENU')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="Org.OData.Aggregation.V1" Alias="Aggregation"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="http://val-vs1.movento.mannheim:8001/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_PERSONALDATA',Version='0001',SAP__Origin='FIORI_MENU')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.PersonalData.v1" Alias="PersonalData"/>
+    </edmx:Reference>
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="Z_EWM_PTWY_LOGIMAT_SRV" xml:lang="en" sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityType Name="workstation" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Lgnum"/>
+                    <PropertyRef Name="Wrkst"/>
+                </Key>
+                <Property Name="Lgnum" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="Warehouse No." sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Wrkst" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="Work Center" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="huHeader" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Huident"/>
+                    <PropertyRef Name="Pmat"/>
+                    <PropertyRef Name="Wrkst"/>
+                </Key>
+                <Property Name="Huident" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Handling Unit" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Lgnum" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="Warehouse No." sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Pmat" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Pack. Material" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Wrkst" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="Work Center" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <NavigationProperty Name="toItems" Relationship="Z_EWM_PTWY_LOGIMAT_SRV.assHuHeaderToHuItem" FromRole="FromRole_assHuHeaderToHuItem" ToRole="ToRole_assHuHeaderToHuItem"/>
+            </EntityType>
+            <EntityType Name="huItem" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Huident"/>
+                    <PropertyRef Name="Docno"/>
+                </Key>
+                <Property Name="Huident" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Handling Unit" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Docno" Type="Edm.String" Nullable="false" MaxLength="35" sap:unicode="false" sap:label="Document Number" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Itemno" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Item Number" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="ZEWM_C_LOGIMAT_INBOUNDDLVSType" sap:label="Inbound Deliverys which are not GI Posted" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Docid"/>
+                    <PropertyRef Name="Itemid"/>
+                </Key>
+                <Property Name="Docid" Type="Edm.Guid" Nullable="false" sap:label="Document ID"/>
+                <Property Name="Itemid" Type="Edm.Guid" Nullable="false" sap:label="Item ID"/>
+                <Property Name="Doccat" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:label="Document Category"/>
+                <Property Name="Docno" Type="Edm.String" MaxLength="35" sap:display-format="UpperCase" sap:label="Document Number"/>
+                <Property Name="Itemno" Type="Edm.String" MaxLength="10" sap:display-format="NonNegative" sap:label="Item Number"/>
+                <Property Name="Itemuuid" Type="Edm.Guid" sap:label="Item UUID" sap:quickinfo="Universal Unique Identifier of a Delivery Item"/>
+                <Property Name="Itemcat" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:label="Item Category"/>
+                <Property Name="Itemtype" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Item Type"/>
+                <Property Name="Productid" Type="Edm.Guid" sap:label="Product ID"/>
+                <Property Name="Productno" Type="Edm.String" MaxLength="40" sap:display-format="UpperCase" sap:label="Product"/>
+                <Property Name="Batchno" Type="Edm.String" MaxLength="20" sap:display-format="UpperCase" sap:label="Batch Number"/>
+                <Property Name="ProductnoExt" Type="Edm.String" MaxLength="40" sap:display-format="UpperCase" sap:label="External Product"/>
+                <Property Name="Productent" Type="Edm.String" MaxLength="40" sap:display-format="UpperCase" sap:label="Product Entered"/>
+                <Property Name="Qty" Type="Edm.Decimal" Precision="31" Scale="14" sap:unit="Uom" sap:label="Quantity"/>
+                <Property Name="Uom" Type="Edm.String" MaxLength="3" sap:label="Unit of Measure" sap:semantics="unit-of-measure"/>
+                <Property Name="Tstfr" Type="Edm.String" MaxLength="10"/>
+                <Property Name="Lgnum" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Warehouse Number" sap:quickinfo="Warehouse Number/Warehouse Complex"/>
+                <Property Name="Partyno" Type="Edm.String" MaxLength="28" sap:display-format="UpperCase" sap:label="Business Partner" sap:quickinfo="Business Partner Number"/>
+                <Property Name="PartyNameOrg" Type="Edm.String" MaxLength="40" sap:label="Name 1" sap:quickinfo="Name 1 of organization"/>
+                <NavigationProperty Name="to_partner" Relationship="Z_EWM_PTWY_LOGIMAT_SRV.assoc_E5433CF24AF6CDEB23E8F32CD048C95E" FromRole="FromRole_assoc_E5433CF24AF6CDEB23E8F32CD048C95E" ToRole="ToRole_assoc_E5433CF24AF6CDEB23E8F32CD048C95E"/>
+                <NavigationProperty Name="to_status" Relationship="Z_EWM_PTWY_LOGIMAT_SRV.assoc_ED47F9780F513F67E46FC2EEC88422CF" FromRole="FromRole_assoc_ED47F9780F513F67E46FC2EEC88422CF" ToRole="ToRole_assoc_ED47F9780F513F67E46FC2EEC88422CF"/>
+            </EntityType>
+            <EntityType Name="ZEWM_I_LOGIMAT_BPPARTNERType" sap:label="Business Partners" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Docid"/>
+                    <PropertyRef Name="Itemid"/>
+                    <PropertyRef Name="PartyRole"/>
+                </Key>
+                <Property Name="Docid" Type="Edm.Guid" Nullable="false" sap:label="Document ID"/>
+                <Property Name="Itemid" Type="Edm.Guid" Nullable="false" sap:label="Item ID"/>
+                <Property Name="PartyRole" Type="Edm.String" Nullable="false" MaxLength="6" sap:display-format="UpperCase" sap:label="Partner Role"/>
+                <Property Name="Partyno" Type="Edm.String" MaxLength="28" sap:display-format="UpperCase" sap:label="Business Partner" sap:quickinfo="Business Partner Number"/>
+                <Property Name="name_org1" Type="Edm.String" MaxLength="40" sap:label="Name 1" sap:quickinfo="Name 1 of organization"/>
+            </EntityType>
+            <EntityType Name="ZEWM_I_LOGIMAT_DB_STATUSType" sap:label="Database Status of Inbound Deliverys" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Docid"/>
+                    <PropertyRef Name="Itemid"/>
+                    <PropertyRef Name="StatusType"/>
+                </Key>
+                <Property Name="Docid" Type="Edm.Guid" Nullable="false" sap:label="Document ID"/>
+                <Property Name="Itemid" Type="Edm.Guid" Nullable="false" sap:label="Item ID"/>
+                <Property Name="StatusType" Type="Edm.String" Nullable="false" MaxLength="5" sap:display-format="UpperCase" sap:label="Status Type"/>
+                <Property Name="Doccat" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:label="Document Category"/>
+                <Property Name="StatusValue" Type="Edm.String" MaxLength="1" sap:display-format="UpperCase" sap:label="Status Value"/>
+                <Property Name="Tzone" Type="Edm.String" MaxLength="6" sap:display-format="UpperCase" sap:label="Time Zone"/>
+                <Property Name="Chgusr" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Changed By"/>
+            </EntityType>
+            <EntityType Name="ZEWM_I_LOGIMAT_PMATType" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Matnr"/>
+                    <PropertyRef Name="Matid"/>
+                </Key>
+                <Property Name="Matnr" Type="Edm.String" Nullable="false" MaxLength="40" sap:display-format="UpperCase" sap:label="Product Number"/>
+                <Property Name="Matid" Type="Edm.String" Nullable="false" MaxLength="40" sap:label="Product ID" sap:quickinfo="Internal Number (UID) for Product"/>
+                <Property Name="Langu" Type="Edm.String" MaxLength="2" sap:label="Language Key"/>
+                <Property Name="Maktx" Type="Edm.String" MaxLength="40" sap:label="Product Description" sap:quickinfo="Product Short Description"/>
+                <Property Name="Maktg" Type="Edm.String" MaxLength="40" sap:display-format="UpperCase" sap:label="Material Description" sap:quickinfo="Material Short Description in Upper Case for Matchcodes"/>
+                <Property Name="Pmtyp" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Packaging Matl Type" sap:quickinfo="Packaging Material Type"/>
+                <Property Name="ClosedPm" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Closed Pack Material" sap:quickinfo="Closed Packaging Material"/>
+                <Property Name="Hutyp" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Handling Unit Type"/>
+            </EntityType>
+            <EntityType Name="ZEWM_I_LOGIMAT_WAREHUOSENUMBERType" sap:label="Warehousenumber" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Lagernummer"/>
+                </Key>
+                <Property Name="Lagernummer" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="UpperCase" sap:label="Warehouse Number" sap:quickinfo="Warehouse Number/Warehouse Complex"/>
+                <Property Name="Bezeichnung" Type="Edm.String" MaxLength="40" sap:label="Description"/>
+            </EntityType>
+            <EntityType Name="ZEWM_I_LOGIMAT_WORKSTATIONType" sap:label="Workstation CDS View" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Lgnum"/>
+                    <PropertyRef Name="Wrkst"/>
+                    <PropertyRef Name="Description"/>
+                </Key>
+                <Property Name="Lgnum" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="UpperCase" sap:label="Warehouse Number" sap:quickinfo="Warehouse Number/Warehouse Complex"/>
+                <Property Name="Wrkst" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="UpperCase" sap:label="Work Center"/>
+                <Property Name="Description" Type="Edm.String" Nullable="false" MaxLength="40" sap:label="Description"/>
+            </EntityType>
+            <EntityType Name="ZEWM_I_LOGIMAT_ZLOGEDONType" sap:label="Workstation Z-Table CDS View" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Lgnum"/>
+                    <PropertyRef Name="Wrkst"/>
+                    <PropertyRef Name="Uname"/>
+                </Key>
+                <Property Name="Lgnum" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="UpperCase" sap:label="Warehouse Number" sap:quickinfo="Warehouse Number/Warehouse Complex"/>
+                <Property Name="Wrkst" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="UpperCase" sap:label="Work Center"/>
+                <Property Name="Uname" Type="Edm.String" Nullable="false" MaxLength="12" sap:display-format="UpperCase" sap:label="User Name"/>
+            </EntityType>
+            <ComplexType Name="Message">
+                <Property Name="Msg" Type="Edm.String" Nullable="false" MaxLength="120" sap:label="char120" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </ComplexType>
+            <ComplexType Name="PrintPreview">
+                <Property Name="Xstring" Type="Edm.String" Nullable="false" MaxLength="100000" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </ComplexType>
+            <Association Name="assoc_E5433CF24AF6CDEB23E8F32CD048C95E" sap:content-version="1">
+                <End Type="Z_EWM_PTWY_LOGIMAT_SRV.ZEWM_C_LOGIMAT_INBOUNDDLVSType" Multiplicity="1" Role="FromRole_assoc_E5433CF24AF6CDEB23E8F32CD048C95E"/>
+                <End Type="Z_EWM_PTWY_LOGIMAT_SRV.ZEWM_I_LOGIMAT_BPPARTNERType" Multiplicity="0..1" Role="ToRole_assoc_E5433CF24AF6CDEB23E8F32CD048C95E"/>
+            </Association>
+            <Association Name="assoc_ED47F9780F513F67E46FC2EEC88422CF" sap:content-version="1">
+                <End Type="Z_EWM_PTWY_LOGIMAT_SRV.ZEWM_C_LOGIMAT_INBOUNDDLVSType" Multiplicity="1" Role="FromRole_assoc_ED47F9780F513F67E46FC2EEC88422CF"/>
+                <End Type="Z_EWM_PTWY_LOGIMAT_SRV.ZEWM_I_LOGIMAT_DB_STATUSType" Multiplicity="0..1" Role="ToRole_assoc_ED47F9780F513F67E46FC2EEC88422CF"/>
+            </Association>
+            <Association Name="assHuHeaderToHuItem" sap:content-version="1">
+                <End Type="Z_EWM_PTWY_LOGIMAT_SRV.huHeader" Multiplicity="1" Role="FromRole_assHuHeaderToHuItem"/>
+                <End Type="Z_EWM_PTWY_LOGIMAT_SRV.huItem" Multiplicity="*" Role="ToRole_assHuHeaderToHuItem"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_assHuHeaderToHuItem">
+                        <PropertyRef Name="Huident"/>
+                    </Principal>
+                    <Dependent Role="ToRole_assHuHeaderToHuItem">
+                        <PropertyRef Name="Huident"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <EntityContainer Name="Z_EWM_PTWY_LOGIMAT_SRV_Entities" m:IsDefaultEntityContainer="true" sap:message-scope-supported="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="ZEWM_C_LOGIMAT_INBOUNDDLVS" EntityType="Z_EWM_PTWY_LOGIMAT_SRV.ZEWM_C_LOGIMAT_INBOUNDDLVSType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="ZEWM_I_LOGIMAT_BPPARTNER" EntityType="Z_EWM_PTWY_LOGIMAT_SRV.ZEWM_I_LOGIMAT_BPPARTNERType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="ZEWM_I_LOGIMAT_DB_STATUS" EntityType="Z_EWM_PTWY_LOGIMAT_SRV.ZEWM_I_LOGIMAT_DB_STATUSType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="ZEWM_I_LOGIMAT_PMAT" EntityType="Z_EWM_PTWY_LOGIMAT_SRV.ZEWM_I_LOGIMAT_PMATType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="ZEWM_I_LOGIMAT_WAREHUOSENUMBER" EntityType="Z_EWM_PTWY_LOGIMAT_SRV.ZEWM_I_LOGIMAT_WAREHUOSENUMBERType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="ZEWM_I_LOGIMAT_WORKSTATION" EntityType="Z_EWM_PTWY_LOGIMAT_SRV.ZEWM_I_LOGIMAT_WORKSTATIONType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="ZEWM_I_LOGIMAT_ZLOGEDON" EntityType="Z_EWM_PTWY_LOGIMAT_SRV.ZEWM_I_LOGIMAT_ZLOGEDONType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="workstationSet" EntityType="Z_EWM_PTWY_LOGIMAT_SRV.workstation" sap:creatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="huHeaderSet" EntityType="Z_EWM_PTWY_LOGIMAT_SRV.huHeader" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="huItemSet" EntityType="Z_EWM_PTWY_LOGIMAT_SRV.huItem" sap:creatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <AssociationSet Name="assoc_ED47F9780F513F67E46FC2EEC88422CF" Association="Z_EWM_PTWY_LOGIMAT_SRV.assoc_ED47F9780F513F67E46FC2EEC88422CF" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ZEWM_C_LOGIMAT_INBOUNDDLVS" Role="FromRole_assoc_ED47F9780F513F67E46FC2EEC88422CF"/>
+                    <End EntitySet="ZEWM_I_LOGIMAT_DB_STATUS" Role="ToRole_assoc_ED47F9780F513F67E46FC2EEC88422CF"/>
+                </AssociationSet>
+                <AssociationSet Name="assHuHeaderToHuItemSet" Association="Z_EWM_PTWY_LOGIMAT_SRV.assHuHeaderToHuItem" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="huHeaderSet" Role="FromRole_assHuHeaderToHuItem"/>
+                    <End EntitySet="huItemSet" Role="ToRole_assHuHeaderToHuItem"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_E5433CF24AF6CDEB23E8F32CD048C95E" Association="Z_EWM_PTWY_LOGIMAT_SRV.assoc_E5433CF24AF6CDEB23E8F32CD048C95E" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ZEWM_C_LOGIMAT_INBOUNDDLVS" Role="FromRole_assoc_E5433CF24AF6CDEB23E8F32CD048C95E"/>
+                    <End EntitySet="ZEWM_I_LOGIMAT_BPPARTNER" Role="ToRole_assoc_E5433CF24AF6CDEB23E8F32CD048C95E"/>
+                </AssociationSet>
+                <FunctionImport Name="CreateHandlingUnit" ReturnType="Z_EWM_PTWY_LOGIMAT_SRV.Message" m:HttpMethod="GET" sap:action-for="Z_EWM_PTWY_LOGIMAT_SRV.huHeader">
+                    <Parameter Name="Huident" Type="Edm.String" Mode="In" MaxLength="18"/>
+                    <Parameter Name="Pmat" Type="Edm.String" Mode="In" MaxLength="40"/>
+                    <Parameter Name="Hutype" Type="Edm.String" Mode="In" MaxLength="4"/>
+                    <Parameter Name="Lgnum" Type="Edm.String" Mode="In" MaxLength="4"/>
+                    <Parameter Name="Wrkst" Type="Edm.String" Mode="In" MaxLength="4"/>
+                </FunctionImport>
+                <FunctionImport Name="FinishHandlingUnit" ReturnType="Z_EWM_PTWY_LOGIMAT_SRV.Message" m:HttpMethod="POST" sap:action-for="Z_EWM_PTWY_LOGIMAT_SRV.huHeader">
+                    <Parameter Name="Huident" Type="Edm.String" Mode="In" MaxLength="18"/>
+                    <Parameter Name="Wrkst" Type="Edm.String" Mode="In" MaxLength="4"/>
+                    <Parameter Name="Lgnum" Type="Edm.String" Mode="In" MaxLength="4"/>
+                </FunctionImport>
+                <FunctionImport Name="PrintHandlingUnit" ReturnType="Z_EWM_PTWY_LOGIMAT_SRV.Message" m:HttpMethod="POST" sap:action-for="Z_EWM_PTWY_LOGIMAT_SRV.huHeader">
+                    <Parameter Name="Huident" Type="Edm.String" Mode="In" MaxLength="18"/>
+                    <Parameter Name="Wrkst" Type="Edm.String" Mode="In" MaxLength="4"/>
+                    <Parameter Name="Lgnum" Type="Edm.String" Mode="In" MaxLength="4"/>
+                </FunctionImport>
+                <FunctionImport Name="LogOnWorkstation" ReturnType="Z_EWM_PTWY_LOGIMAT_SRV.Message" m:HttpMethod="POST" sap:action-for="Z_EWM_PTWY_LOGIMAT_SRV.workstation">
+                    <Parameter Name="Lgnum" Type="Edm.String" Mode="In" MaxLength="4"/>
+                    <Parameter Name="Wrkst" Type="Edm.String" Mode="In" MaxLength="4"/>
+                </FunctionImport>
+                <FunctionImport Name="LogOffWorkstation" ReturnType="Z_EWM_PTWY_LOGIMAT_SRV.Message" m:HttpMethod="POST" sap:action-for="Z_EWM_PTWY_LOGIMAT_SRV.workstation">
+                    <Parameter Name="Wrkst" Type="Edm.String" Mode="In" MaxLength="4"/>
+                    <Parameter Name="Lgnum" Type="Edm.String" Mode="In" MaxLength="4"/>
+                </FunctionImport>
+                <FunctionImport Name="PrintHandlingUnitPreview" ReturnType="Z_EWM_PTWY_LOGIMAT_SRV.PrintPreview" m:HttpMethod="GET">
+                    <Parameter Name="Lgnum" Type="Edm.String" Mode="In" MaxLength="4"/>
+                    <Parameter Name="Wrkst" Type="Edm.String" Mode="In" MaxLength="4"/>
+                    <Parameter Name="Huident" Type="Edm.String" Mode="In" MaxLength="18"/>
+                </FunctionImport>
+            </EntityContainer>
+            <Annotations Target="Z_EWM_PTWY_LOGIMAT_SRV.Z_EWM_PTWY_LOGIMAT_SRV_Entities" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Aggregation.ApplySupported">
+                    <Record>
+                        <PropertyValue Property="Transformations">
+                            <Collection>
+                                <String>aggregate</String>
+                                <String>groupby</String>
+                                <String>filter</String>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="Rollup" EnumMember="None"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <atom:link rel="self" href="http://val-vs1.movento.mannheim:8001/sap/opu/odata/sap/Z_EWM_PTWY_LOGIMAT_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+            <atom:link rel="latest-version" href="http://val-vs1.movento.mannheim:8001/sap/opu/odata/sap/Z_EWM_PTWY_LOGIMAT_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>
